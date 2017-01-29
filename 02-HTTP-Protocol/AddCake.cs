@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 
 namespace AddCake
 {
@@ -26,6 +27,7 @@ namespace AddCake
             string postContent = Console.ReadLine();
             string[] cakeinfo = postContent.Split('&');
             string cakeName = cakeinfo[0].Split('=')[1];
+            cakeName = cakeName.Replace('+', ' ');
             decimal cakePrice = decimal.Parse(cakeinfo[1].Split('=')[1]);
             if (cakeName != null && cakePrice != 0)
             {
