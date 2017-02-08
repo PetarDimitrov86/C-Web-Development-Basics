@@ -14,6 +14,7 @@
         {
             this.StatusCode = statusCode;
             this.Header = new Header(HeaderType.HttpResponse);
+            this.Content = new byte[10];
         }
 
         public ResponseStatusCode StatusCode { get; set; }
