@@ -171,7 +171,7 @@
                 using (var context = new NotesAppContext())
                 {
                     Login login = context.Logins.FirstOrDefault(l => l.SessionId == session.Id);
-                    context.Logins.Remove(login);
+                    context.Logins.Remove(login);       // Or set login.IsActive = false;
                     context.SaveChanges();
                 }
                 return Redirect("/home/index");
