@@ -38,13 +38,13 @@
         }
 
         [HttpPost]
-        public IActionResult Contacts(MessageBindingModel model)
+        public IActionResult Contacts(MessageBindingModel model, HttpResponse response)
         {
             if (string.IsNullOrEmpty(model.Subject) || string.IsNullOrEmpty(model.Sender))
             {
-                Redirect(new HttpResponse(), "/home/contacts");
-                // This redirect does nothing on its own
-                return this.View();
+                // Do not forget to pass the response from the arguments as parameter
+                Redirect(response, "/home/contacts");
+                return null;
             }
             new AddMessage().SendMessage(model);
 
