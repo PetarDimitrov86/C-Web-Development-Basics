@@ -29,9 +29,9 @@
         {
             new RegisterNewUser().RegUser(model);
 
+            // should redirect because we are using a post method
             Redirect(response, "/home/index");
-
-            return this.View("Home", "Index");
+            return null;
         }
 
         [HttpGet]
@@ -46,11 +46,13 @@
             new UserSigningIn().TrySigningIn(model, session);
             if (signInManager.IsAuthenticated(session))
             {
-                Redirect(response, "/home/indexlogged");
+                this.Redirect(response, "/home/indexlogged");
                 return null;
             }
-
-            return this.View();
+            
+            // should redirect because we are using a post method
+            this.Redirect(response, "/home/index");
+            return null;
         }
 
         [HttpGet]
