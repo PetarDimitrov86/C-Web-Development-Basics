@@ -23,12 +23,14 @@
                         "<ul class=\"nav navbar-nav\">" +
                             "<li ><a href=\"/menu/add\">Suggest Pizza</a></li>" +
                             "<li><a href=\"/menu/suggestions\">Your Suggestions</a></li>" +
+                            "<li><a href=\"/menu/sorted\">Sorted Pizzas</a></li>" +
                         "</ul>" +
                         "<ul class=\"nav navbar-nav navbar-right\">" +
                             "<p class=\"navbar-text navbar-right\"></p>" +
                             "<p class=\"navbar-text navbar-right\"><a href=\"/users/logout\" class=\"navbar-link\">Sign Out</a></p>" +
                             $"<p class=\"navbar-text navbar-right\">Signed in as {Model.First().Owner.Email}</p>" +
                         "</ul> </div></div></nav>");
+
             html.AppendLine("<div class=\"card-deck\">");
             foreach (var pizzaViewModel in Model)
             {

@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using AutoMapper;
     using Data;
     using Models;
     using ViewModels;
@@ -10,15 +9,15 @@
 
     public class DisplayAllPizzas
     {
-        public IEnumerable<PizzaViewModel> GetPizzas(HttpSession session)
+        public IEnumerable<PizzaViewModel> GetPizzas(HttpSession session, string sortingMethod)
         {
             var pizzasVMs = new List<PizzaViewModel>();
-            ConfigureMapper();
 
             using (var context = new PizzaMoreContext())
             {
                 var pizzas = context.Pizzas.ToList();
-                foreach (var pizza in pizzas)
+                var sortedPizzas = this.GetSortedPizzas(pizzas, sortingMethod);
+                foreach (var pizza in sortedPizzas)
                 {
                     PizzaViewModel pizzaVM = new PizzaViewModel
                     {
@@ -36,9 +35,33 @@
             return pizzasVMs;
         }
 
-        public void ConfigureMapper()
+        public IEnumerable<Pizza> GetSortedPizzas(List<Pizza> pizzas, string sortingCriteria)
         {
-            Mapper.Initialize(expression => expression.CreateMap<PizzaViewModel, Pizza>());
+            switch (sortingCriteria)
+            {
+                case "defaultSort":
+                    return pizzas.OrderByDescending(p => p.UpVotes).ThenBy(p => p.DownVotes).AsEnumerable();
+                case "names_upvotes":
+                    return pizzas.OrderBy(p => p.Title).ThenBy(p => p.UpVotes).AsEnumerable();
+                case "names_downvotes":
+                    return pizzas.OrderBy(p => p.Title).ThenBy(p => p.DownVotes).AsEnumerable();
+                case "upvotes_names":
+                    return pizzas.OrderBy(p => p.UpVotes).ThenBy(p => p.Title).AsEnumerable();
+                case "upvotes_downvotes":
+                    return pizzas.OrderBy(p => p.UpVotes).ThenBy(p => p.DownVotes).AsEnumerable();
+                case "downvotes_names":
+                    return pizzas.OrderBy(p => p.DownVotes).ThenBy(p => p.Title).AsEnumerable();
+                case "downvotes_upvotes":
+                    return pizzas.OrderBy(p => p.DownVotes).ThenBy(p => p.UpVotes).AsEnumerable();
+                case "names_names":
+                    return pizzas.OrderBy(p => p.Title).AsEnumerable();
+                case "downvotes_downvotes":
+                    return pizzas.OrderBy(p => p.DownVotes).AsEnumerable();
+                case "upvotes_upvotes":
+                    return pizzas.OrderBy(p => p.UpVotes).AsEnumerable();
+                default:
+                    return pizzas;
+            }
         }
     }
 }

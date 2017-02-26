@@ -26,7 +26,7 @@
         {
             if (signInManager.IsAuthenticated(session))
             {
-                return View(new DisplayAllPizzas().GetPizzas(session));
+                return View(new DisplayAllPizzas().GetPizzas(session, "noSorting"));
             }
 
             Redirect(response, "/users/signin");
@@ -95,6 +95,25 @@
                 return null;
             }
             return View(new ShowPizzaDetails().Show(pizzaid));
+        }
+
+        [HttpGet]
+        public IActionResult<IEnumerable<PizzaViewModel>> Sorted(HttpSession session, HttpResponse response)
+        {
+            if (signInManager.IsAuthenticated(session))
+            {
+                return View(new DisplayAllPizzas().GetPizzas(session, "defaultSort"));
+            }
+
+            Redirect(response, "/users/signin");
+            return null;
+        }
+
+        [HttpPost]
+        public IActionResult<IEnumerable<PizzaViewModel>> Sorted(SortingBindingModel model, HttpResponse response, HttpSession session)
+        {
+            string sortingMethod = model.FirstCriteria + "_" + model.SecondCriteria;
+            return View(new DisplayAllPizzas().GetPizzas(session, sortingMethod));
         }
     }
 }
