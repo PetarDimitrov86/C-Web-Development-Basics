@@ -1,9 +1,10 @@
 ﻿namespace PizzaMore.Security
 {
-    using System.Linq;
     using SimpleHttpServer.Models;
     using Interfaces;
     using System;
+    using SimpleHttpServer.Utilities;
+    using System.Linq;
 
     public class SignInManager
     {
@@ -23,11 +24,14 @@
              return this.dbContext.Sessions.Any(s => s.SessionId == session.Id && s.isActive);
         }
 
-        public void Logout(HttpSession session)
+        public void Logout(HttpSession session, HttpResponse response)
         {
             dbContext.Sessions.FirstOrDefault(s => s.SessionId == session.Id).isActive = false;
-            session.Id = new Random().Next().ToString();
             this.dbContext.SaveChanges();
+
+            var newSession = SessionCreator.Create();
+            var sessionCookie = new Cookie("sessionId", newSession.Id + "; HttpOnly; path=/");
+            response.Header.AddCookie(sessionCookie);
         }
     }
 }

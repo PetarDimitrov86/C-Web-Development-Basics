@@ -47,7 +47,7 @@
                                 "<p class=\"navbar-text navbar-right\"><a href=\"/users/logout\" class=\"navbar-link\">Sign Out</a></p>\r\n" +
                                 $"<p class=\"navbar-text navbar-right\">Signed in as {Model.First().Owner.Email}</p>\r\n" +
                             "</ul>\r\n</div>\r\n</div>\r\n</nav>");
-
+							
             foreach (var pizzaViewModel in Model)
             {
                 html.AppendLine(pizzaViewModel.ToString());

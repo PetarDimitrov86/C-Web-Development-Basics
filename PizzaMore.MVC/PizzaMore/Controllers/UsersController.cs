@@ -30,7 +30,7 @@
             new RegisterNewUser().RegUser(model);
 
             // should redirect because we are using a post method
-            Redirect(response, "/home/index");
+            this.Redirect(response, "/home/index");
             return null;
         }
 
@@ -46,10 +46,10 @@
             new UserSigningIn().TrySigningIn(model, session);
             if (signInManager.IsAuthenticated(session))
             {
-                this.Redirect(response, "/home/indexlogged");
+                Redirect(response, "/home/indexlogged");
                 return null;
             }
-            
+
             // should redirect because we are using a post method
             this.Redirect(response, "/home/index");
             return null;
@@ -58,7 +58,7 @@
         [HttpGet]
         public IActionResult Logout(HttpSession session, HttpResponse response)
         {
-            signInManager.Logout(session);
+            signInManager.Logout(session, response);
             Redirect(response, "/home/index");
             return null;
         }

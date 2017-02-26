@@ -21,6 +21,8 @@ namespace PizzaMore.Migrations
                 }, 
             });
 
+            context.SaveChanges();
+
             context.Pizzas.AddOrUpdate(p => p.Title, new Pizza[]
             {
                 new Pizza
@@ -43,9 +45,16 @@ namespace PizzaMore.Migrations
                     OwnerId = 1
                 },new Pizza
                 {
-                    Title = "Lidinka",
-                    ImageUrl = "http://static.djagi.com/avatars/djagi.com/966480.jpg",
-                    Recipe = "Tastiest of them all",
+                    Title = "Pineapple",
+                    ImageUrl = "https://sparkpeo.hs.llnwd.net/e4/7/1/l719944983.jpg",
+                    Recipe = "You want pineapple on your pizza? Seriusly? Just kill it with fire",
+                    DownVotes = 9999,
+                    OwnerId = 1
+                },new Pizza
+                {
+                    Title = "Pepperoni",
+                    ImageUrl = "http://www.silviocicchi.com/pizzachef/wp-content/uploads/2015/02/p41.jpg",
+                    Recipe = "1. Spoon tomato-and-basil pasta sauce evenly over crust, leaving a 1-inch border around edges. Top with half of pepperoni slices. Sprinkle with cheese. Top with remaining pepperoni.\r\n\r\n2. Bake pizza at 450° directly on oven rack 11 to 12 minutes or until crust is golden and cheese is melted. Cut into 6 slices. Serve immediately.",
                     OwnerId = 1
                 },
             });
