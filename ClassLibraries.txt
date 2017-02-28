@@ -5,11 +5,10 @@ ServiceLayer
 --Services
 App
 --Controllers
---Views
---ViewModels
---BindingModels
 --Security
 ----SignInManager
 --Utilities
 ----Constants
-
+Models
+--ViewModels
+--BindingModels
